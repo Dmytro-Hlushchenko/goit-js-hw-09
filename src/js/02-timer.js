@@ -1,15 +1,9 @@
-//Напиши скрипт таймера, який здійснює зворотний відлік до певної дати.
-//Такий таймер може використовуватися у блогах та інтернет - магазинах, сторінках реєстрації подій,
-// під час технічного обслуговування тощо.Подивися демо - відео роботи таймера.
-
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from 'notiflix';
 
 const timerInput = document.getElementById('datetime-picker');
 const startBtn = document.querySelector('button');
-
-startBtn.addEventListener('click', onStartBtn);
-startBtn.setAttribute('disabled','');
 
 const options = {
   enableTime: true,
@@ -17,12 +11,40 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
+    startBtn.removeAttribute('disabled');
     console.log(selectedDates[0]);
   },
 };
 
+startBtn.addEventListener('click', onStartBtn);
+startBtn.setAttribute('disabled', '');
+
+
 flatpickr(timerInput, options);
 
 function onStartBtn() {
-    window.alert('');
+  
 };
+
+function convertMs(ms) {
+  
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+
+  // Remaining days
+  const days = Math.floor(ms / day);
+  // Remaining hours
+  const hours = Math.floor((ms % day) / hour);
+  // Remaining minutes
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  // Remaining seconds
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+
+  return { days, hours, minutes, seconds };
+}
+
+console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
+console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
+console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
