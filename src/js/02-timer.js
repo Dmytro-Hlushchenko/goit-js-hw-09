@@ -9,7 +9,7 @@ const timerInput = document.getElementById('datetime-picker');
 const startBtn = document.querySelector('button');
 
 startBtn.addEventListener('click', onStartBtn);
-// startBtn.setAttribute('disabled', '');
+startBtn.setAttribute('disabled','');
 
 const options = {
   enableTime: true,
