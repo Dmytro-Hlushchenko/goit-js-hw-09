@@ -1,5 +1,3 @@
-//Таймер повинен зупинятися, коли дійшов до кінцевої дати, тобто 00:00:00:00.
-
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
@@ -15,6 +13,7 @@ const timer = {
 };
 
 let selectedDate = null;
+let timerId = null;
 
 const options = {
   enableTime: true,
@@ -40,20 +39,20 @@ flatpickr(timerInput, options);
 function onStartBtn() {
   startBtn.disabled = true;
   timerInput.disabled = true;
-  setInterval(startTimer, 1000);
+  timerId = setInterval(startTimer, 1000);
   };
 
 function startTimer() {
   const timerTime = selectedDate - Date.now();
   if (timerTime < 0) {
     stopTimer();
-  } else {
-    convertMs(timerTime);
-  }  
+    alert('FINISHED!!!!')
+  } else 
+  convertMs(timerTime);
 };
 
 function stopTimer() {
-  clearInterval.startTimer;
+  clearInterval(timerId);
 };
 
 function convertMs(ms) {
@@ -72,7 +71,6 @@ function convertMs(ms) {
   timer.hours.textContent = addLeadingZero(hours);
   timer.minutes.textContent = addLeadingZero(minutes);
   timer.seconds.textContent = addLeadingZero(seconds);
-    // return { days, hours, minutes, seconds };
 }
 
 function addLeadingZero(value) {
