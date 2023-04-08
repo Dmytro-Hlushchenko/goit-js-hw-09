@@ -1,21 +1,4 @@
-//Додай мінімальне оформлення елементів інтерфейсу.
-
-//Натисканням на кнопку «Start» скрипт повинен обчислювати раз на секунду, скільки часу залишилось до вказаної дати,
-// і оновлювати інтерфейс таймера, показуючи чотири цифри: дні, години, хвилини і секунди у форматі xx: xx: xx: xx.
-
-//Кількість днів може складатися з більше, ніж двох цифр.
 //Таймер повинен зупинятися, коли дійшов до кінцевої дати, тобто 00:00:00:00.
-
-//Якщо таймер запущений, для того щоб вибрати нову дату і перезапустити його - необхідно перезавантажити сторінку.
-
-//Для підрахунку значень використовуй готову функцію convertMs, де ms - різниця між кінцевою і поточною датою в мілісекундах.
-
-
-//Функція convertMs() повертає об'єкт з розрахованим часом, що залишився до кінцевої дати.
-//Зверни увагу, що вона не форматує результат.Тобто, якщо залишилося 4 хвилини або будь - якої іншої складової часу,
-//то функція поверне 4, а не 04.В інтерфейсі таймера необхідно додавати 0, якщо в числі менше двох символів.
-//Напиши функцію addLeadingZero(value), яка використовує метод padStart()
-//і перед рендерингом інтефрейсу форматує значення.
 
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
@@ -32,8 +15,6 @@ const timer = {
 };
 
 let selectedDate = null;
-
-
 
 const options = {
   enableTime: true,
@@ -59,16 +40,20 @@ flatpickr(timerInput, options);
 function onStartBtn() {
   startBtn.disabled = true;
   timerInput.disabled = true;
-  setInterval(timerId, 1000);
+  setInterval(startTimer, 1000);
   };
 
-function timerId() {
+function startTimer() {
   const timerTime = selectedDate - Date.now();
-  convertMs(timerTime);
+  if (timerTime < 0) {
+    stopTimer();
+  } else {
+    convertMs(timerTime);
+  }  
 };
 
 function stopTimer() {
-
+  clearInterval.startTimer;
 };
 
 function convertMs(ms) {
@@ -87,9 +72,7 @@ function convertMs(ms) {
   timer.hours.textContent = addLeadingZero(hours);
   timer.minutes.textContent = addLeadingZero(minutes);
   timer.seconds.textContent = addLeadingZero(seconds);
-  
-  
-  // return { days, hours, minutes, seconds };
+    // return { days, hours, minutes, seconds };
 }
 
 function addLeadingZero(value) {
