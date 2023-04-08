@@ -23,7 +23,17 @@ import Notiflix from 'notiflix';
 
 const timerInput = document.getElementById('datetime-picker');
 const startBtn = document.querySelector('button');
+
+const timer = {
+  days: document.querySelector('[data-days]'),
+  hours: document.querySelector('[data-hours]'),
+  minutes: document.querySelector('[data-minutes]'),
+  seconds: document.querySelector('[data-seconds]'),
+};
+
 let selectedDate = null;
+
+
 
 const options = {
   enableTime: true,
@@ -32,15 +42,14 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     
-    if (selectedDates[0] - Date.now() > 0) {
+    if (selectedDates[0] - Date.now() <= 0) {
+      alert("Please choose a date in the future");
+    }
+    else {
       selectedDate = selectedDates[0];
       startBtn.disabled = false;
     }
-    else {
-      alert("Please choose a date in the future");
-    }
-    
-    },
+  },
 };
 
 startBtn.addEventListener('click', onStartBtn);
@@ -55,7 +64,7 @@ function onStartBtn() {
 
 function timerId() {
   const timerTime = selectedDate - Date.now();
-  console.log(convertMs(timerTime));
+  convertMs(timerTime);
 };
 
 function convertMs(ms) {
@@ -69,6 +78,11 @@ function convertMs(ms) {
   const hours = Math.floor((ms % day) / hour);
   const minutes = Math.floor(((ms % day) % hour) / minute);
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-
-  return { days, hours, minutes, seconds };
+  
+  timer.days.textContent = days;
+  timer.hours.textContent = hours;
+  timer.minutes.textContent = minutes;
+  timer.seconds.textContent = seconds;
+  
+  // return { days, hours, minutes, seconds };
 }
