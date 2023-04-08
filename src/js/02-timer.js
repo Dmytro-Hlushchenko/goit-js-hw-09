@@ -23,7 +23,7 @@ const options = {
   onClose(selectedDates) {
     
     if (selectedDates[0] - Date.now() <= 0) {
-      alert("Please choose a date in the future");
+      Notiflix.Notify.failure("Please choose a date in the future");
     }
     else {
       selectedDate = selectedDates[0];
@@ -39,6 +39,7 @@ flatpickr(timerInput, options);
 function onStartBtn() {
   startBtn.disabled = true;
   timerInput.disabled = true;
+  Notiflix.Notify.success('Timer started!');
   timerId = setInterval(startTimer, 1000);
   };
 
@@ -46,7 +47,7 @@ function startTimer() {
   const timerTime = selectedDate - Date.now();
   if (timerTime < 0) {
     stopTimer();
-    alert('FINISHED!!!!')
+    Notiflix.Notify.success('Finished!!!');
   } else 
   convertMs(timerTime);
 };
