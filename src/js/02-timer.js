@@ -67,6 +67,10 @@ function timerId() {
   convertMs(timerTime);
 };
 
+function stopTimer() {
+
+};
+
 function convertMs(ms) {
   
   const second = 1000;
@@ -79,10 +83,15 @@ function convertMs(ms) {
   const minutes = Math.floor(((ms % day) % hour) / minute);
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
   
-  timer.days.textContent = days;
-  timer.hours.textContent = hours;
-  timer.minutes.textContent = minutes;
-  timer.seconds.textContent = seconds;
+  timer.days.textContent = addLeadingZero(days);
+  timer.hours.textContent = addLeadingZero(hours);
+  timer.minutes.textContent = addLeadingZero(minutes);
+  timer.seconds.textContent = addLeadingZero(seconds);
+  
   
   // return { days, hours, minutes, seconds };
 }
+
+function addLeadingZero(value) {
+  return String(value).padStart(2, '0');
+};
