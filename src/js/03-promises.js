@@ -7,11 +7,25 @@
 //position і delay зі значеннями однойменних параметрів.Використовуй початковий код функції для вибору того,
 // що потрібно зробити з промісом - виконати або відхилити.
 
-const submitBtn = document.querySelector('button');
+const formInput = document.querySelector('.form');
 
-submitBtn.addEventListener('click', createPromise);
+formInput.addEventListener('submit', onSubmitBtn);
+
+function onSubmitBtn(e) {
+  e.preventDefault();
+  
+  const delay = formInput['delay'].value;
+  const step = formInput['step'].value;
+  const amount = formInput['amount'].value;
+  
+  for (let i = 0; i < amount; i += 1) {
+    createPromise();
+    }
+   
+}
 
 function createPromise(position, delay) {
+
   const shouldResolve = Math.random() > 0.3;
   if (shouldResolve) {
     // Fulfill
@@ -19,3 +33,5 @@ function createPromise(position, delay) {
     // Reject
   }
 }
+
+
