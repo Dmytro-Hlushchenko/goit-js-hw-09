@@ -1,5 +1,5 @@
 //Напиши скрипт, який на момент сабміту форми викликає функцію createPromise(position, delay) стільки разів,
-//скільки ввели в поле amount.Під час кожного виклику передай їй номер промісу(position), що створюється,
+//скільки ввели в поле amount. !!!! Під час кожного виклику передай їй номер промісу(position), що створюється,
 // і затримку, враховуючи першу затримку(delay), введену користувачем, і крок(step).
 
 //Доповни код функції createPromise таким чином, щоб вона повертала один проміс, який виконується або
@@ -17,21 +17,30 @@ function onSubmitBtn(e) {
   const delay = formInput['delay'].value;
   const step = formInput['step'].value;
   const amount = formInput['amount'].value;
-  
+
+  let position = 0;
   for (let i = 0; i < amount; i += 1) {
-    createPromise();
+    position = i;
+    createPromise(position, delay, step);
     }
-   
 }
 
-function createPromise(position, delay) {
-
-  const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    // Fulfill
-  } else {
-    // Reject
-  }
-}
-
-
+function createPromise(position, delay, step) {
+  const promise = new Promise((resolve, rejected) => {
+    const shouldResolve = Math.random() > 0.3;
+    setTimeout(() => {
+      if (shouldResolve) {
+        resolve('zaebis');
+      }
+      rejected('ploho');
+    }, delay);
+  },);
+  
+  promise.then(result => {
+    console.log(result);
+  },
+    error => { 
+      console.log(error)
+    })
+  
+};
