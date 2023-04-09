@@ -49,7 +49,8 @@ function startTimer() {
     stopTimer();
     Notiflix.Notify.success('Finished!!!');
   } else 
-  convertMs(timerTime);
+    convertMs(timerTime);
+  startBtn.removeEventListener;
 };
 
 function stopTimer() {
