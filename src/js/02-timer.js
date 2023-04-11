@@ -45,16 +45,15 @@ function onStartBtn() {
 
 function startTimer() {
   const timerTime = selectedDate - Date.now();
-  if (timerTime < 0) {
+  convertMs(timerTime);
+  if (timerTime <= 1000) {
     stopTimer();
-    Notiflix.Notify.success('Finished!!!');
-  } else 
-    convertMs(timerTime);
-  startBtn.removeEventListener;
-};
+  }
+}
 
 function stopTimer() {
   clearInterval(timerId);
+  Notiflix.Notify.success('Finished!!!');
 };
 
 function convertMs(ms) {
